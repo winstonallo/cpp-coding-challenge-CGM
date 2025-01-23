@@ -9,8 +9,8 @@
         "dockerfile": "Dockerfile"
     },
     "mounts": [
-        "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+        "source=${localEnv:HOME}/.ssh,target=/home/winstonallo/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.gitconfig,target=/home/winstonallo/.gitconfig,type=bind,consistency=cached"
     ],
     "customizations": {
         "vscode": {
