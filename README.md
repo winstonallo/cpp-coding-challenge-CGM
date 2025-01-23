@@ -1,7 +1,6 @@
 # Coding Challenge C++
 
-Write a C++ command line program that gives me two options. One to ask a specific question and the other option is to add questions and their answers
- 
+1. Write a C++ command line program that gives me two options. One to ask a specific question and the other option is to add questions and their answers
 
 Therefore the following restrictions apply:
 
@@ -12,13 +11,13 @@ Therefore the following restrictions apply:
 * If the user asks a question which is not stored yet the program should print “the answer to life, universe and everything is 42” according to “The hitchhikers guide to the Galaxy”
 * If the user asks a question whish is  stored the program should print all answers to that question. Every Answer in a separate line
 * Adding a question looks like: `<question>? “<answer1>” “<answer2>” “<answerX>”`
- * Char “?” is the separator between question and answers
- * Every Question needs to have at least one answer but can have unlimited answers all inside of char “
+  * Char “?” is the separator between question and answers
+  * Every Question needs to have at least one answer but can have unlimited answers all inside of char “
  
 
-* Provide tests for the functionality described in 1)
-* Provide the source code on any GIT repo worldwide (GITLAB, GITHUB, whatever you prefer and/or use)
-* No other restrictions apply
+2. Provide tests for the functionality described in 1)
+3. Provide the source code on any GIT repo worldwide (GITLAB, GITHUB, whatever you prefer and/or use)
+4. No other restrictions apply
  
 
 ## Examples:
