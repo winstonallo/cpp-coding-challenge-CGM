@@ -1,0 +1,26 @@
+{
+    "name": "cpp-coding-challenge-CGM",
+    "runArgs": [
+        "--name",
+        "dev-cpp-coding-challenge-CGM"
+    ],
+    "build": {
+        "context": "..",
+        "dockerfile": "Dockerfile"
+    },
+    "mounts": [
+        "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/zsh"
+            },
+            "extensions": [
+                "llvm-vs-code-extensions.vscode-clangd"
+            ]
+        }
+    },
+    "workspaceFolder": "/workspaces/cpp-coding-challenge-CGM"
+}
