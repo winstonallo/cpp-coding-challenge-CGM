@@ -1,22 +1,17 @@
-FROM --platform=linux/amd64 rust:1.70-bullseye
+FROM gcc:14.2.0-bookworm
 
-RUN apt-get update && apt-get install -y \
-	build-essential \
-	curl \
-	gcc \
-	gdb \
-	lldb \
-	git \
-	pkg-config \
-	nasm \
-	mtools \
-	xorriso \
-	grub-pc-bin \
-	grub-efi-amd64-bin \
-	qemu \
-	qemu-system-x86 \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apt update -y && apt upgrade -y && \
+    apt install -y zsh && \
+    rm -rf /var/lib/apt/lists/*
+
+    
+RUN git config --global --add safe.directory /workspaces/cpp-coding-challenge-CGM
+
+RUN useradd -ms /usr/bin/zsh winstonallo && \
+usermod -aG sudo winstonallo
+
+USER winstonallo
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
 
-COPY .zshrc /root/.zshrc
+RUN git config --global --add safe.directory /workspaces/cpp-coding-challenge-CGM
