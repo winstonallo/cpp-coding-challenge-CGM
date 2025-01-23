@@ -18,7 +18,8 @@
                 "terminal.integrated.shell.linux": "/bin/zsh"
             },
             "extensions": [
-                "llvm-vs-code-extensions.vscode-clangd"
+                "llvm-vs-code-extensions.vscode-clangd",
+                "ms-python.python"
             ]
         }
     },

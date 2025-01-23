@@ -12,7 +12,6 @@ RUN apt update -y && apt upgrade -y && \
 
 RUN pip install conan --break-system-packages
 
-RUN conan profile detect
 
 RUN git config --global --add safe.directory /workspaces/cpp-coding-challenge-CGM
 
@@ -25,3 +24,4 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 
 RUN git config --global --add safe.directory /workspaces/cpp-coding-challenge-CGM
 
+RUN conan profile detect

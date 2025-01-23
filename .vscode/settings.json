@@ -1,3 +1,5 @@
 {
-    "cmake.sourceDirectory": "/workspaces/cpp-coding-challenge-CGM"
+    "clangd.arguments": [
+        "--compile-commands-dir=build"
+    ]
 }
