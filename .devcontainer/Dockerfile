@@ -5,10 +5,14 @@ RUN apt update -y && apt upgrade -y && \
     zsh \
     python3 \
     python3-pip \
+    cmake \
+    valgrind \
     && \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install conan --break-system-packages
+
+RUN conan profile detect
 
 RUN git config --global --add safe.directory /workspaces/cpp-coding-challenge-CGM
 
