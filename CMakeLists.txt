@@ -12,3 +12,5 @@ find_package(GTest REQUIRED)
 target_link_libraries(deepthought GTest::GTest)
 
 target_include_directories(deepthought PRIVATE src)
+
+target_compile_options(deepthought PRIVATE -Wall -Wextra -Werror -O3)

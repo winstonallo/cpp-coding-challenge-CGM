@@ -25,7 +25,7 @@ class DeepThought {
 
     const variant<string, DeepThoughtError>
     _getQuestion(const string &input) {
-        for (int idx = 0; idx < input.size(); ++idx) {
+        for (size_t idx = 0; idx < input.size(); ++idx) {
 
             if (input[idx] == '"') {
                 return variant<string, DeepThoughtError>(DeepThoughtError(DeepThoughtError::Type::QUESTION_IN_QUOTES));
