@@ -6,7 +6,6 @@ TEST(DeepThoughtAdd, AnswerTooLong) {}
 TEST(DeepThoughtAdd, MultipleQuestionMarks) {}
 TEST(DeepThoughtAdd, UnclosedQuotes) {}
 TEST(DeepThoughtAdd, AnswerWithoutQuotes) {}
-TEST(DeepThoughtAdd, NoAnswer) {}
 
 TEST(DeepThoughtAsk, EmptyInput) {}
 TEST(DeepThoughtAsk, InputTooLong) {}

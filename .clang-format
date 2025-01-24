@@ -6,7 +6,7 @@ AllowAllParametersOfDeclarationOnNextLine: false
 AlwaysBreakAfterDefinitionReturnType: All
 InsertNewlineAtEOF: true
 AlignOperands: true
-AllowShortFunctionsOnASingleLine: None
+AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: WithoutElse
 IncludeBlocks: Merge
 BinPackArguments: false
