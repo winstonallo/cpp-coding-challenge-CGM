@@ -1,7 +1,7 @@
+#include <iostream>
 #include <optional>
 #include <string>
 #include <unordered_map>
-#include <iostream>
 
 using namespace std;
 
@@ -11,7 +11,6 @@ class DeepThoughtError {
     enum class Type {
         QUESTION_IN_QUOTES,
         QUESTION_TOO_LONG,
-        LAST,
     };
 
     explicit DeepThoughtError(Type errorType) : _errorType(errorType) {
