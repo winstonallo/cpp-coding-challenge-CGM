@@ -1,13 +1,14 @@
 AlignArrayOfStructures: Left
 IndentWidth: 4
 ColumnLimit: 120
-AllowAllArgumentsOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: false
 AlwaysBreakAfterDefinitionReturnType: All
 InsertNewlineAtEOF: true
 AlignOperands: true
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: WithoutElse
 IncludeBlocks: Merge
-BinPackArguments: false
+AlignAfterOpenBracket: BlockIndent
 BinPackParameters: false
+BinPackArguments: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false

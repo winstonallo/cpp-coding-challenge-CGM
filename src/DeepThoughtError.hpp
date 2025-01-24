@@ -8,6 +8,7 @@ using namespace std;
 class DeepThoughtError {
 
   public:
+    // `enum class` prevents implicit conversions to integer types.
     enum class Type {
         QUESTION_IN_QUOTES,
         QUESTION_TOO_LONG,
@@ -18,7 +19,19 @@ class DeepThoughtError {
         ANSWER_WITHOUT_QUOTES,
     };
 
-    explicit DeepThoughtError(Type errorType) : _errorType(errorType) {}
+    // `explicit` keyword prevents implicit conversions, ensuring it can only be
+    // used for direct initialization.
+    explicit DeepThoughtError(DeepThoughtError::Type errorType) : _errorType(errorType) {}
+
+    ~DeepThoughtError() = default;
+
+    // Delete all other constructors to ensure each `DeepThoughtError` is unique
+    // and immutable.
+    DeepThoughtError() = delete;
+    DeepThoughtError(const DeepThoughtError &rhs) = delete;
+    DeepThoughtError &operator=(const DeepThoughtError &rhs) = delete;
+    DeepThoughtError(DeepThoughtError &&rhs) = delete;
+    DeepThoughtError &operator=(const DeepThoughtError &&rhs) = delete;
 
     const string &
     getMessage() const {

@@ -2,6 +2,7 @@
 
 #include "DeepThoughtError.hpp"
 #include <string>
+#include <utility>
 #include <variant>
 #include <vector>
 
@@ -28,15 +29,24 @@ class DeepThought {
         for (size_t idx = 0; idx < input.size(); ++idx) {
 
             if (input[idx] == '"') {
-                return variant<string, DeepThoughtError>(DeepThoughtError(DeepThoughtError::Type::QUESTION_IN_QUOTES));
+                return variant<string, DeepThoughtError>(
+                    in_place_type<DeepThoughtError>,
+                    DeepThoughtError::Type::QUESTION_IN_QUOTES
+                );
             } else if (idx > 255) {
-                return variant<string, DeepThoughtError>(DeepThoughtError(DeepThoughtError::Type::QUESTION_TOO_LONG));
+                return variant<string, DeepThoughtError>(
+                    in_place_type<DeepThoughtError>,
+                    DeepThoughtError::Type::QUESTION_IN_QUOTES
+                );
             } else if (input[idx] == '?') {
                 return variant<string, DeepThoughtError>(input.substr(0, idx));
             }
         }
 
-        return variant<string, DeepThoughtError>(DeepThoughtError(DeepThoughtError::Type::QUESTION_TOO_LONG));
+        return variant<string, DeepThoughtError>(
+            in_place_type<DeepThoughtError>,
+            DeepThoughtError::Type::QUESTION_IN_QUOTES
+        );
     }
 
   public:
