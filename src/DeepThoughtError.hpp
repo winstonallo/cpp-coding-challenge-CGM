@@ -25,13 +25,14 @@ class DeepThoughtError {
 
     ~DeepThoughtError() = default;
 
+    DeepThoughtError(DeepThoughtError &&rhs) noexcept = default;
+    DeepThoughtError &operator=(DeepThoughtError &&rhs) noexcept = default;
+
     // Delete all other constructors to ensure each `DeepThoughtError` is unique
     // and immutable.
     DeepThoughtError() = delete;
     DeepThoughtError(const DeepThoughtError &rhs) = delete;
     DeepThoughtError &operator=(const DeepThoughtError &rhs) = delete;
-    DeepThoughtError(DeepThoughtError &&rhs) = delete;
-    DeepThoughtError &operator=(const DeepThoughtError &&rhs) = delete;
 
     const string &
     getMessage() const {
@@ -39,12 +40,33 @@ class DeepThoughtError {
             initializeErrorMessages();
         }
 
-        return _errorMessages->at(_errorType);
+        if (_stackTrace.empty()) {
+            return _errorMessages->at(_errorType);
+        } else {
+            return _stackTrace;
+        }
+    }
+
+    Type
+    getType() const {
+        return _errorType;
+    }
+
+    DeepThoughtError &
+    addToStackTrace(const std::string &message) {
+        if (_stackTrace.empty()) {
+            _stackTrace = message + ": " + getMessage();
+            return *this;
+        }
+
+        _stackTrace = _stackTrace + ": " + message;
+        return *this;
     }
 
   private:
     Type _errorType;
     static optional<unordered_map<Type, string>> _errorMessages;
+    string _stackTrace;
 
     void
     initializeErrorMessages() const {

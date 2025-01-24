@@ -36,7 +36,7 @@ class DeepThought {
             } else if (idx > 255) {
                 return variant<string, DeepThoughtError>(
                     in_place_type<DeepThoughtError>,
-                    DeepThoughtError::Type::QUESTION_IN_QUOTES
+                    DeepThoughtError::Type::QUESTION_TOO_LONG
                 );
             } else if (input[idx] == '?') {
                 return variant<string, DeepThoughtError>(input.substr(0, idx));
@@ -58,16 +58,26 @@ class DeepThought {
     DeepThought(DeepThought &&) = delete;
     DeepThought &operator=(DeepThought &&) = delete;
 
-    const variant<bool, string>
+    const variant<bool, DeepThoughtError>
     processInput(const string &input) {
         variant<string, DeepThoughtError> questionVariant = _getQuestion(input);
-        string question;
 
-        try {
-            question = get<string>(questionVariant);
-        } catch (bad_variant_access &ex) {
+        if (holds_alternative<DeepThoughtError>(questionVariant)) {
+            DeepThoughtError &err = get<DeepThoughtError>(questionVariant).addToStackTrace("could not parse question");
+            return variant<bool, DeepThoughtError>(std::move(err));
         }
 
-        return variant<bool, string>(true);
+        const string &question = get<string>(questionVariant);
+
+        optional<vector<string>> answers = _lookupQuestion(question);
+        if (answers.has_value()) {
+            for (string &answer : answers.value()) {
+                cout << answer << '\n';
+            }
+        } else {
+            cout << "The answer to life, universe and everything is 42." << '\n';
+        }
+
+        return variant<bool, DeepThoughtError>(true);
     }
 };

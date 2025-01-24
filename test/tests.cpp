@@ -1,11 +1,9 @@
 #include "gtest/gtest.h"
 
-TEST(DeepThoughtAdd, EmptyInput) {}
-TEST(DeepThoughtAdd, QuestionTooLong) {} // > 255 chars until next unquoted question mark
-TEST(DeepThoughtAdd, AnswerTooLong) {}
-TEST(DeepThoughtAdd, MultipleQuestionMarks) {}
-TEST(DeepThoughtAdd, UnclosedQuotes) {}
-TEST(DeepThoughtAdd, AnswerWithoutQuotes) {}
-
-TEST(DeepThoughtAsk, EmptyInput) {}
-TEST(DeepThoughtAsk, InputTooLong) {}
+TEST(DeepThoughtTest, EmptyInput) {}
+TEST(DeepThoughtTest, QuestionTooLong) {} // > 255 chars until next unquoted question mark
+TEST(DeepThoughtTest, AnswerTooLong) {}
+TEST(DeepThoughtTest, MultipleQuestionMarks) {}
+TEST(DeepThoughtTest, UnclosedQuotes) {}
+TEST(DeepThoughtTest, AnswerWithoutQuotes) {}
+TEST(DeepThoughtTest, NonExistingQuestion) {}
