@@ -46,7 +46,7 @@ class DeepThought {
 
         return variant<string, DeepThoughtError>(
             in_place_type<DeepThoughtError>,
-            DeepThoughtError::Type::QUESTION_IN_QUOTES
+            DeepThoughtError::Type::EMPTY_INPUT
         );
     }
 
@@ -77,8 +77,8 @@ class DeepThought {
                     left = idx;
                     inQuotes = true;
                 }
-            }
-            if (!inQuotes && string("\t\n ").find_first_of(trimmedInput[idx]) != string::npos) {
+            } else if (!inQuotes && string("\t\n ").find_first_of(trimmedInput[idx]) == string::npos) {
+                cout << trimmedInput[idx] << endl;
                 return variant<vector<string>, DeepThoughtError>(
                     in_place_type<DeepThoughtError>,
                     DeepThoughtError::Type::ANSWER_WITHOUT_QUOTES
