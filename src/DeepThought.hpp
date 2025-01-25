@@ -2,6 +2,7 @@
 
 #include "DeepThoughtError.hpp"
 #include <cstddef>
+#include <sstream>
 #include <string>
 #include <utility>
 #include <variant>
@@ -44,10 +45,7 @@ class DeepThought {
             }
         }
 
-        return variant<string, DeepThoughtError>(
-            in_place_type<DeepThoughtError>,
-            DeepThoughtError::Type::EMPTY_INPUT
-        );
+        return variant<string, DeepThoughtError>(in_place_type<DeepThoughtError>, DeepThoughtError::Type::EMPTY_INPUT);
     }
 
     const variant<vector<string>, DeepThoughtError>
@@ -105,24 +103,26 @@ class DeepThought {
     DeepThought(DeepThought &&) = delete;
     DeepThought &operator=(DeepThought &&) = delete;
 
-    const variant<bool, DeepThoughtError>
+    const variant<string, DeepThoughtError>
     processInput(const string &input) {
         variant<string, DeepThoughtError> questionVariant = getQuestion(input);
 
         if (holds_alternative<DeepThoughtError>(questionVariant)) {
             DeepThoughtError &err = get<DeepThoughtError>(questionVariant).addToStackTrace("could not parse question");
-            return variant<bool, DeepThoughtError>(std::move(err));
+            return variant<string, DeepThoughtError>(std::move(err));
         }
 
         const string &question = get<string>(questionVariant);
         if (input.find_first_not_of("\t\n ", question.size()) == string::npos) {
             optional<vector<string>> answers = lookupQuestion(question);
             if (answers.has_value()) {
+                stringstream stream;
                 for (string &answer : answers.value()) {
-                    cout << answer << '\n';
+                    stream << answer << '\n';
                 }
+                return variant<string, DeepThoughtError>(stream.str());
             } else {
-                cout << "The answer to life, universe and everything is 42." << '\n';
+                return variant<string, DeepThoughtError>("The answer to life, universe and everything is 42.\n");
             }
 
         } else {
@@ -130,11 +130,11 @@ class DeepThought {
 
             if (holds_alternative<DeepThoughtError>(result)) {
                 DeepThoughtError &err = get<DeepThoughtError>(result).addToStackTrace("could not parse answers");
-                return variant<bool, DeepThoughtError>(std::move(err));
+                return variant<string, DeepThoughtError>(std::move(err));
             }
 
             _questions[question] = get<vector<string>>(result);
         }
-        return variant<bool, DeepThoughtError>(true);
+        return variant<string, DeepThoughtError>("");
     }
 };

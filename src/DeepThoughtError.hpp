@@ -70,7 +70,6 @@ class DeepThoughtError {
 
     void
     initializeErrorMessages() const {
-        cout << "initializing error messages" << endl;
         _errorMessages.emplace(unordered_map<Type, string>{
             {Type::QUESTION_IN_QUOTES,      "question can not be in quotes"                },
             {Type::QUESTION_TOO_LONG,       "no question found in the first 255 characters"},
