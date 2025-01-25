@@ -6,33 +6,22 @@ using namespace std;
 
 int
 main() {
-    DeepThought deepThought;
+    DeepThought deepthought;
+    string input;
 
-    variant<string, DeepThoughtError> res1 = deepThought.processInput("");
+    for (;;) {
+        cout << "deepthought> ";
 
-    if (holds_alternative<DeepThoughtError>(res1)) {
-        DeepThoughtError &err = get<DeepThoughtError>(res1);
-        cerr << "error: " << err.getMessage() << endl;
-    } else {
-        cout << get<string>(res1);
-    }
+        if (!getline(cin, input)) {
+            break;
+        }
 
-    variant<string, DeepThoughtError> res2 =
-        deepThought.processInput("Hello, World?       \"Hello, Sir!\"        \"How are you today?\"");
+        variant <string, DeepThoughtError> res = deepthought.processInput(input);
 
-    if (holds_alternative<DeepThoughtError>(res2)) {
-        DeepThoughtError &err = get<DeepThoughtError>(res2);
-        cerr << "error: " << err.getMessage() << endl;
-    } else {
-        cout << get<string>(res2);
-    }
-
-    variant<string, DeepThoughtError> res3 = deepThought.processInput("Hello, World?");
-
-    if (holds_alternative<DeepThoughtError>(res3)) {
-        DeepThoughtError &err = get<DeepThoughtError>(res3);
-        cerr << "error: " << err.getMessage() << endl;
-    } else {
-        cout << get<string>(res3);
+        if (holds_alternative<DeepThoughtError>(res)) {
+            cerr << get<DeepThoughtError>(res).getMessage() << '\n';
+        } else {
+            cout << get<string>(res);
+        }
     }
 }

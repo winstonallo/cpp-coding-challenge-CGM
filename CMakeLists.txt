@@ -8,7 +8,7 @@ add_executable(deepthought src/main.cpp src/DeepThoughtError.cpp src/DeepThought
 target_link_libraries(deepthought ${CONAN_LIBS})
 
 find_package(GTest REQUIRED)
-add_executable(tests test/tests.cpp)
+add_executable(tests test/tests.cpp src/DeepThought.cpp src/DeepThoughtError.cpp)
 target_link_libraries(tests GTest::GTest GTest::Main ${CONAN_LIBS})
 
 target_include_directories(deepthought PRIVATE src)

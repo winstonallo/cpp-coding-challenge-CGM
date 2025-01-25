@@ -54,8 +54,10 @@ class DeepThought {
         bool inQuotes;
         vector<string> answers;
 
-        string trimmedInput = input.substr(input.find_first_not_of("\t\n "), input.find_last_not_of("\t\n "));
-
+        string trimmedInput = input.substr(
+            input.find_first_not_of("\t\n "),
+            input.find_last_not_of("\t\n ") - input.find_first_not_of("\t\n ") + 1
+        );
         if (trimmedInput[0] != '"') {
             return variant<vector<string>, DeepThoughtError>(
                 in_place_type<DeepThoughtError>,
@@ -68,6 +70,12 @@ class DeepThought {
         for (size_t idx = 1; idx < trimmedInput.size(); ++idx) {
             if (trimmedInput[idx] == '"') {
                 if (inQuotes) {
+                    if ((idx - left - 1) > 255) {
+                        return variant<vector<string>, DeepThoughtError>(
+                            in_place_type<DeepThoughtError>,
+                            DeepThoughtError::Type::ANSWER_TOO_LONG
+                        );
+                    }
                     answers.push_back(trimmedInput.substr(left + 1, idx - left - 1));
                     inQuotes = false;
                 } else {
