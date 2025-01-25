@@ -66,7 +66,6 @@ class DeepThought {
         inQuotes = true;
 
         for (size_t idx = 1; idx < trimmedInput.size(); ++idx) {
-            // cout << idx << " - " << trimmedInput[idx] << endl;
             if (trimmedInput[idx] == '"') {
                 if (inQuotes) {
                     answers.push_back(trimmedInput.substr(left + 1, idx - left - 1));
@@ -76,7 +75,6 @@ class DeepThought {
                     inQuotes = true;
                 }
             } else if (!inQuotes && string("\t\n ").find_first_of(trimmedInput[idx]) == string::npos) {
-                cout << trimmedInput[idx] << endl;
                 return variant<vector<string>, DeepThoughtError>(
                     in_place_type<DeepThoughtError>,
                     DeepThoughtError::Type::ANSWER_WITHOUT_QUOTES

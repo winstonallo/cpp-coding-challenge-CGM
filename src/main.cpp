@@ -1,4 +1,5 @@
 #include "DeepThought.hpp"
+#include <iostream>
 #include <variant>
 
 using namespace std;
