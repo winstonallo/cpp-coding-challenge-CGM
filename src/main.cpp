@@ -4,8 +4,7 @@
 
 using namespace std;
 
-int
-main() {
+int main() {
     DeepThought deepthought;
     string input;
 
@@ -16,10 +15,11 @@ main() {
             break;
         }
 
-        variant <string, DeepThoughtError> res = deepthought.processInput(input);
+        variant<string, DeepThoughtError> res = deepthought.processInput(input);
 
         if (holds_alternative<DeepThoughtError>(res)) {
             cerr << get<DeepThoughtError>(res).getMessage() << '\n';
+            cerr << deepthought.usage();
         } else {
             cout << get<string>(res);
         }

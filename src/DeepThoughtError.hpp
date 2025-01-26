@@ -4,6 +4,10 @@
 
 using namespace std;
 
+// Error class for `DeepThought`, containing all possible error cases and their corresponding base error messages.
+// Additionally, the `addToStackTrace` public method may be used to prepend more information to `DeepThoughtError`'s
+// error message.
+//
 class DeepThoughtError {
 
   public:
@@ -15,10 +19,9 @@ class DeepThoughtError {
         UNCLOSED_QUOTES,
         ANSWER_TOO_LONG,
         ANSWER_WITHOUT_QUOTES,
+        NO_QUESTION,
     };
 
-    // `explicit` keyword prevents implicit conversions, ensuring it can only be
-    // used for direct initialization.
     explicit DeepThoughtError(DeepThoughtError::Type errorType) : _errorType(errorType) {}
 
     ~DeepThoughtError() = default;
@@ -26,14 +29,12 @@ class DeepThoughtError {
     DeepThoughtError(DeepThoughtError &&rhs) noexcept = default;
     DeepThoughtError &operator=(DeepThoughtError &&rhs) noexcept = default;
 
-    // Delete all other constructors to ensure each `DeepThoughtError` is unique
-    // and immutable.
     DeepThoughtError() = delete;
     DeepThoughtError(const DeepThoughtError &rhs) = delete;
     DeepThoughtError &operator=(const DeepThoughtError &rhs) = delete;
 
-    const string &
-    getMessage() const {
+    // Returns the `DeepThoughtError` instance's message, initializing the static `_errorMessages` variable if necessary.
+    const string &getMessage() const {
         if (!_errorMessages) {
             initializeErrorMessages();
         }
@@ -45,13 +46,19 @@ class DeepThoughtError {
         }
     }
 
-    Type
-    getType() const {
-        return _errorType;
-    }
+    // Returns the `DeepThoughtError`'s error's type.
+    Type getType() const { return _errorType; }
 
-    DeepThoughtError &
-    addToStackTrace(const std::string &message) {
+    // Prepends an additional message to the `DeepThoughtError`'s stack trace.
+    // .
+    // Example:
+    // `DeepThoughtError err = DeepThoughtError(DeepThoughtError::Type::EMPTY_INPUT)`
+    // `cout << err.getMessage()`
+    // `Input can not be empty`
+    // `err.addToStackTrace("Could not parse question")`
+    // `cout << err.getMessage()`
+    // `Could not parse question: Input can not be empty`
+    DeepThoughtError &addToStackTrace(const std::string &message) {
         if (_stackTrace.empty()) {
             _stackTrace = message + ": " + getMessage();
             return *this;
@@ -66,15 +73,15 @@ class DeepThoughtError {
     static optional<unordered_map<Type, string>> _errorMessages;
     string _stackTrace;
 
-    void
-    initializeErrorMessages() const {
+    void initializeErrorMessages() const {
         _errorMessages.emplace(unordered_map<Type, string>{
-            {Type::QUESTION_IN_QUOTES,      "question can not be in quotes"                },
-            {Type::QUESTION_TOO_LONG,       "no question found in the first 255 characters"},
-            {Type::EMPTY_INPUT,             "input can not be empty"                       },
-            {Type::UNCLOSED_QUOTES,         "quotes sequences must be closed"              },
-            {Type::ANSWER_TOO_LONG,         "answers can not exceed 255 characters"        },
-            {Type::ANSWER_WITHOUT_QUOTES,   "answers must be enclosed in quotes"           },
+            {Type::QUESTION_IN_QUOTES,    "Question can not be in quotes"                },
+            {Type::QUESTION_TOO_LONG,     "No question found in the first 255 characters"},
+            {Type::EMPTY_INPUT,           "Input can not be empty"                       },
+            {Type::UNCLOSED_QUOTES,       "Quoted sequences must be closed"              },
+            {Type::ANSWER_TOO_LONG,       "Answers can not exceed 255 characters"        },
+            {Type::ANSWER_WITHOUT_QUOTES, "Answers must be enclosed in quotes"           },
+            {Type::NO_QUESTION,           "No question found in input"                   },
         });
     }
 };

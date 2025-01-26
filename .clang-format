@@ -1,10 +1,10 @@
 AlignArrayOfStructures: Left
 IndentWidth: 4
 ColumnLimit: 120
-AlwaysBreakAfterDefinitionReturnType: All
+# AlwaysBreakAfterDefinitionReturnType: All
 InsertNewlineAtEOF: true
 AlignOperands: true
-AllowShortFunctionsOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: WithoutElse
 IncludeBlocks: Merge
 AlignAfterOpenBracket: BlockIndent
