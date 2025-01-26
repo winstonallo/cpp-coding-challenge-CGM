@@ -7,11 +7,17 @@ RUN apt update -y && apt upgrade -y && \
     python3-pip \
     cmake \
     valgrind \
+    unzip \
     && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install conan --break-system-packages
+RUN wget https://github.com/clangd/clangd/releases/download/19.1.2/clangd-linux-19.1.2.zip
 
+RUN unzip clangd-linux-19.1.2.zip -d /usr/local && \
+    ln -s /usr/local/clangd_19.1.2/bin/clangd /usr/local/bin/clangd && \
+    rm clangd-linux-19.1.2.zip
+
+RUN pip install conan --break-system-packages
 
 RUN git config --global --add safe.directory /workspaces/cpp-coding-challenge-CGM
 
