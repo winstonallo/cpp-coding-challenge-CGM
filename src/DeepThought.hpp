@@ -9,7 +9,7 @@
 #include <variant>
 #include <vector>
 
-using namespace std;
+using std::string, std::vector, std::variant, std::stringstream, std::holds_alternative, std::get;
 
 #undef DEEPTHOUGHT_USAGE
 #define DEEPTHOUGHT_USAGE                                                                                              \

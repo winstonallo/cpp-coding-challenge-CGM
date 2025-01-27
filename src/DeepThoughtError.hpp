@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 
-using namespace std;
+using std::string, std::unordered_map, std::optional;
 
 // Error class for `DeepThought`, containing all possible error cases and their corresponding base error messages.
 // Additionally, the `addToStackTrace` public method may be used to prepend more information to `DeepThoughtError`'s
